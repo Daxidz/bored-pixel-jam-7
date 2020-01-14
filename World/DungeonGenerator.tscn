@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://DungeonGenerator.gd" type="Script" id=1]
+[ext_resource path="res://World/Map.gd" type="Script" id=2]
+
+[node name="DungeonGenerator" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Rooms" type="Node" parent="."]
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource( 2 )
