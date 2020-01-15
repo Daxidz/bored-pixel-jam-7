@@ -27,7 +27,7 @@ var cur_index = Vector2(0, 0)
 	
 	
 func init():
-	$Map.rooms_pos.clear()
+	$Map.rooms.clear()
 
 func _generate_room():
 	var room = Room.instance()
@@ -56,7 +56,7 @@ func add_room(_room):
 	if cur_nb == 0:
 		print("First room added!")
 		_room.pos_on_minimap = Vector2(0, 0)
-		$Map.add_room_pos(Vector2(0, 0))
+		$Map.add_room(_room)
 		return
 	
 	# Find a valid neighbors (room + direction relative to the room)
@@ -78,14 +78,15 @@ func add_room(_room):
 			pos.x -= MAP_ROOM_SIZE+2
 		Directions.RIGHT:
 			pos.x += MAP_ROOM_SIZE+2
+	
 	_room.pos_on_minimap = pos
-	$Map.add_room_pos(pos)
+	$Map.add_room(_room)
 	
 
 	
 	
 func validate_room(room, direction) -> bool:
-	print(room.neighbors.count(null))
+	print(room.pos_on_minimap, ": ", room.neighbors.count(null))
 	if room.neighbors.count(null) <= 1:
 		return false
 #	match direction:
@@ -110,3 +111,4 @@ func destroy_dungeon():
 	for room in $Rooms.get_children():
 		room.free()
 	print("Dungeon destroyed! Rooms left: ", $Rooms.get_child_count())
+	assert ($Rooms.get_child_count() == 0)
