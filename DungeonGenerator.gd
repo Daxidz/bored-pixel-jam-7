@@ -5,7 +5,6 @@ const Room = preload("res://World/Room.tscn")
 const MAX_SIZE = 300
 const MIN_SIZE = 150
 
-
 const MAP_ROOM_SIZE = 80
 
 enum Directions {UP, RIGHT, DOWN, LEFT}
@@ -24,91 +23,96 @@ var cur_index = Vector2(0, 0)
 #
 #	if not rooms_drawned.has(room):
 #		$Map.add_room_pos(cur_index)
-	
-	
+
+
 func init():
-	$Map.rooms.clear()
+    $Map.clear()
 
 func _generate_room():
-	var room = Room.instance()
-	
-	var height = randi() % MAX_SIZE + MIN_SIZE
-	var width = randi() % MAX_SIZE + MIN_SIZE
-	
-	var size = Vector2(height, width)
-	
-	room.set_size(size)
-	
-	add_room(room)
-	
-	$Rooms.add_child(room)
-	
+    var room = Room.instance()
+
+    var height = randi() % MAX_SIZE + MIN_SIZE
+    var width = randi() % MAX_SIZE + MIN_SIZE
+
+    var size = Vector2(height, width)
+
+    room.set_size(size)
+    room.id = $Map.rooms.size()
+
+    add_room(room)
+
+    $Rooms.add_child(room)
+
 
 func add_room(_room):
-	var candidate_neigh
-	var direction
-	var cur_nb = $Rooms.get_child_count()
-	var valid = false
-	
-	_room.neighbors.resize(4)
-	
-	# Check for the first room
-	if cur_nb == 0:
-		print("First room added!")
-		_room.pos_on_minimap = Vector2(0, 0)
-		$Map.add_room(_room)
-		return
-	
-	# Find a valid neighbors (room + direction relative to the room)
-	while not valid:
-		candidate_neigh = $Rooms.get_child(randi() % cur_nb)
-		direction = Directions.values()[randi() % Directions.size()]
-		valid = validate_room(candidate_neigh, direction)
-	
-	candidate_neigh.neighbors[int(direction)] = _room
-	_room.neighbors[(int(direction)+2)%4] = candidate_neigh
-	
-	var pos = candidate_neigh.pos_on_minimap
-	match direction:
-		Directions.UP:
-			pos.y -= MAP_ROOM_SIZE+2
-		Directions.DOWN:
-			pos.y += MAP_ROOM_SIZE+2
-		Directions.LEFT:
-			pos.x -= MAP_ROOM_SIZE+2
-		Directions.RIGHT:
-			pos.x += MAP_ROOM_SIZE+2
-	
-	_room.pos_on_minimap = pos
-	$Map.add_room(_room)
-	
+    var candidate_neigh
+    var direction
+    var cur_nb = $Map.rooms.size()
+    var valid = false
 
-	
-	
+    # Check for the first room
+    if cur_nb == 0:
+        _room.pos_on_minimap = Vector2(0, 0)
+        $Map.add_room(_room)
+        return
+
+    # Find a valid neighbors (room + direction relative to the room)
+    while not valid:
+        candidate_neigh = $Map.rooms[randi() % cur_nb]
+        direction = Directions.values()[randi() % Directions.size()]
+        valid = validate_room(candidate_neigh, direction)
+
+    candidate_neigh.neighbors[int(direction)] = _room
+    _room.neighbors[(int(direction)+2) % Directions.size()] = candidate_neigh
+
+    var pos = candidate_neigh.pos_on_minimap
+    match direction:
+        Directions.UP:
+            pos.y -= MAP_ROOM_SIZE+2
+        Directions.DOWN:
+            pos.y += MAP_ROOM_SIZE+2
+        Directions.LEFT:
+            pos.x -= MAP_ROOM_SIZE+2
+        Directions.RIGHT:
+            pos.x += MAP_ROOM_SIZE+2
+
+    _room.pos_on_minimap = pos
+    $Map.add_room(_room)
+
+
 func validate_room(room, direction) -> bool:
-	print(room.pos_on_minimap, ": ", room.neighbors.count(null))
-	if room.neighbors.count(null) <= 1:
-		return false
-#	match direction:
-#		Directions.UP:
-#			valid = room.up_neigh
-#		Directions.DOWN:
-#			valid = room.down_neigh
-#		Directions.LEFT:
-#			valid = room.left_neigh
-#		Directions.RIGHT:
-#			valid = room.right_neigh
-			
-	return room.neighbors[int(direction)] == null
-	
+    var count = room.neighbors.count(null)
+    var idir = int(direction)
+
+    # No neighbor available
+    if (count == 0):
+        return false
+
+    # Place is already taken
+    if (room.neighbors[idir] != null):
+        return false
+
+    var pos = room.pos_on_minimap
+    match direction:
+        Directions.UP:
+            pos.y -= MAP_ROOM_SIZE+2
+
+        Directions.DOWN:
+            pos.y += MAP_ROOM_SIZE+2
+        Directions.LEFT:
+            pos.x -= MAP_ROOM_SIZE+2
+        Directions.RIGHT:
+            pos.x += MAP_ROOM_SIZE+2
+
+    return not $Map.exists(pos)
+
 func create_dungeon(nb_rooms):
-	print("Initially spawning ", nb_rooms, " rooms.")
-	for i in nb_rooms:
-		_generate_room()
-	pass
-	
+    print("Initially spawning ", nb_rooms, " rooms.")
+    for i in nb_rooms:
+        _generate_room()
+    pass
+
 func destroy_dungeon():
-	for room in $Rooms.get_children():
-		room.free()
-	print("Dungeon destroyed! Rooms left: ", $Rooms.get_child_count())
-	assert ($Rooms.get_child_count() == 0)
+    $Map.clear()
+    print("Dungeon destroyed! Rooms left: ", $Rooms.get_child_count())
+    assert ($Rooms.get_child_count() == 0)
