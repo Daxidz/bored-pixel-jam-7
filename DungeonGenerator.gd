@@ -80,9 +80,24 @@ func add_room(_room):
     $Map.add_room(_room)
 
 
+func check_pos(pos, direction):
+    match direction:
+        Directions.UP:
+            pos.y -= MAP_ROOM_SIZE+2
+        Directions.DOWN:
+            pos.y += MAP_ROOM_SIZE+2
+        Directions.LEFT:
+            pos.x -= MAP_ROOM_SIZE+2
+        Directions.RIGHT:
+            pos.x += MAP_ROOM_SIZE+2
+
+    return not $Map.exists(pos)
+
+
 func validate_room(room, direction) -> bool:
     var count = room.neighbors.count(null)
     var idir = int(direction)
+    var size = Directions.size()
 
     # No neighbor available
     if (count == 0):
@@ -92,19 +107,22 @@ func validate_room(room, direction) -> bool:
     if (room.neighbors[idir] != null):
         return false
 
-    var pos = room.pos_on_minimap
+    var cur_pos = room.pos_on_minimap
+    var new_pos = cur_pos
     match direction:
         Directions.UP:
-            pos.y -= MAP_ROOM_SIZE+2
-
+            new_pos.y -= MAP_ROOM_SIZE+2
         Directions.DOWN:
-            pos.y += MAP_ROOM_SIZE+2
+            new_pos.y += MAP_ROOM_SIZE+2
         Directions.LEFT:
-            pos.x -= MAP_ROOM_SIZE+2
+            new_pos.x -= MAP_ROOM_SIZE+2
         Directions.RIGHT:
-            pos.x += MAP_ROOM_SIZE+2
+            new_pos.x += MAP_ROOM_SIZE+2
 
-    return not $Map.exists(pos)
+    var left_dir = Directions.values()[(idir + 1) % size]
+    var right_dir = Directions.values()[(idir - 1) % size]
+
+    return check_pos(cur_pos, direction) and check_pos(new_pos, left_dir) and check_pos(new_pos, right_dir)
 
 func create_dungeon(nb_rooms):
     print("Initially spawning ", nb_rooms, " rooms.")
