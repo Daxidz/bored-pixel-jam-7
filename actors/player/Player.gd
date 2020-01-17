@@ -74,4 +74,28 @@ func set_camera(is_current):
 	$Camera2D.current = is_current
 	
 func _process(delta):
+	var animation
+	if input_velocity.x != 0:
+		animation = "side_move"
+		# Update Sprite orientation when side running
+		if input_velocity.x < 0:
+			$Sprite.scale.x = -1
+		else:
+			$Sprite.scale.x = 1
+			
+	elif input_velocity.y != 0:
+		if input_velocity.y < 0:
+			animation = "back_move"
+		else:
+			animation = "front_move"
+	else:
+		animation = "idle"
 	pass
+	
+	
+	if not ($AnimationPlayer.current_animation == animation):
+		print(animation)
+		animate(animation)
+		
+func animate(animation):
+	$AnimationPlayer.play(animation)

@@ -26,7 +26,10 @@ global="*res://misc/global.gd"
 
 [display]
 
+window/size/width=480
+window/size/height=270
 window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [input]
 

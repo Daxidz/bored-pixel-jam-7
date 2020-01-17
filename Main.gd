@@ -24,7 +24,8 @@ func init_dungeon():
 	
 	player = Player.instance()
 	
-	player.position = $DungeonGenerator/Rooms.get_child(0).size_tiles * 32 / 2
+#	player.position = $DungeonGenerator/Rooms.get_child(0).size_tiles * 32 / 2
+	player.position = Vector2(-10, -10)
 	$DungeonGenerator/Rooms.get_child(0).add_child(player)
 
 func _ready():
