@@ -7,10 +7,10 @@ func _ready():
     pass # Replace with function body.
 
 func _input(event):
-    if (Input.is_action_pressed("ui_zoom_up")):
+    if (Input.is_action_just_pressed("ui_zoom_up")):
         self.zoom.x /= 2
         self.zoom.y /= 2
-    elif (Input.is_action_pressed("ui_zoom_down")):
+    elif (Input.is_action_just_pressed("ui_zoom_down")):
         self.zoom.x *= 2
         self.zoom.y *= 2
     elif (Input.is_action_pressed("ui_up")):

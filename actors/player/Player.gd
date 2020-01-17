@@ -68,6 +68,10 @@ func _physics_process(delta):
 		velocity = velocity * 0.3
 		
 	velocity = move_and_slide(velocity)
+
+
+func set_camera(is_current):
+	$Camera2D.current = is_current
 	
 func _process(delta):
 	pass
