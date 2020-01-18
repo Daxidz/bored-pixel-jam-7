@@ -46,10 +46,7 @@ func switch_camera():
 	$Camera2D.current = current_cam == Camera.MAP
 	
 	
-func room_cleared():
-	current_room.cleared = true
-	current_room.remove_enemies()
-	pass
+
 
 
 func change_room(new_room_id):
@@ -72,3 +69,9 @@ func change_room(new_room_id):
 	
 	current_room = new_room
 	player.position = current_room.size_tiles * 32 / 2
+
+# Callback called when the player takes the drug in the current room
+func room_cleared():
+	current_room.cleared = true
+	current_room.remove_enemies()
+	pass

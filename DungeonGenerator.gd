@@ -1,7 +1,7 @@
 extends Node
 
 const Room: PackedScene = preload("res://World/Room.tscn")
-var Drug: PackedScene = preload("res://Drug.tscn")
+var Drug: PackedScene = preload("res://World/drug/Drug.tscn")
 
 onready var helpers = get_node("/root/helpers")
 onready var global = get_node("/root/global")

@@ -4,42 +4,38 @@ signal use
 
 signal drug_taken
 
-export var BASE_FRICTION = 0.2
-var STOP_FRICTION = 0.5
+const BASE_FRICTION = 0.2
+const STOP_FRICTION = 0.5
 
 export var curent_anim = "idle"
-export var max_speed = 400
 
-var friction
-var acceleration
 
 const BASE_ACCEL = 0.4
 const BASE_SPEED = 350
 
-var screen_size
+var friction = BASE_FRICTION
+var acceleration = BASE_ACCEL
 
-
+export var max_speed = BASE_SPEED
 var velocity = Vector2.ZERO
 var input_velocity = Vector2.ZERO
 
-var interacting_objects: Array
-
-enum STATES { IDLE, MOVING, TOUCHED } 
-
-var state = "idle"
+var screen_size
 
 var taking_drug = false
+var current_drug = null
+
+# 
+const BASE_HP = 3
+var hp
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	hp = BASE_HP
 	
 	 
 func _physics_process(delta):
-	
-	max_speed = BASE_SPEED
-	acceleration = BASE_ACCEL
-	friction = BASE_FRICTION
 
 	input_velocity = Vector2.ZERO
 	input_velocity.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -95,6 +91,10 @@ func animate(animation):
 	$AnimationPlayer.play(animation)
 	
 func take_drug(drug):
+	if current_drug:
+		current_drug.remove_effects(self)
+	current_drug = drug
+	current_drug.apply_effects(self)
 	taking_drug = true
 	emit_signal("drug_taken")
 
