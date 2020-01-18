@@ -15,5 +15,5 @@ func _ready():
 			if i == 0 or j == 0 or j == height-1 or i == width - 1:
 				set_cell(i, j, 1)
 			else:
-				set_cell(i, j, 0)
-	pass
+				pass
+				#set_cell(i, j, 0)

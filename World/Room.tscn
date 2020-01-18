@@ -12,5 +12,8 @@ tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 collision_use_kinematic = true
 format = 1
-tile_data = PoolIntArray( -589836, 0, 0 )
 script = ExtResource( 3 )
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Mobs" type="Node" parent="."]

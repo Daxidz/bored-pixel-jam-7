@@ -9,7 +9,7 @@ func _draw():
     var label = Label.new()
     var font = label.get_font("")
     for room in rooms:
-        print("Drawing room ", room.id, ": ", room.pos_on_minimap)
+        print("Drawing room on debug map ", room.id, ": ", room.pos_on_minimap)
         draw_rect(Rect2(room.pos_on_minimap, MAP_ROOM_SIZE), Color.white, false)
         var char_pos = Vector2(room.pos_on_minimap.x, room.pos_on_minimap.y)
         char_pos.x = char_pos.x + (MAP_ROOM_SIZE.x/2)
