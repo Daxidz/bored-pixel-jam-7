@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://actors/Mobs/Janitor/Janitor.gd" type="Script" id=1]
+[ext_resource path="res://actors/Mobs/Janitor/janitor_spritesheet.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8.42397, 14.4673 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 86.2016
+
+[node name="Janitor" type="KinematicBody2D" groups=[
+"enemies",
+"hurtbox",
+]]
+script = ExtResource( 1 )
+
+[node name="EnemyHitbox" type="CollisionShape2D" parent="."]
+position = Vector2( -0.244179, 6.47059 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 3
+
+[node name="DetectRadius" type="Area2D" parent="."]
+editor/display_folded = true
+
+[node name="RadiusHitbox" type="CollisionShape2D" parent="DetectRadius"]
+position = Vector2( 0, -3.8147e-06 )
+rotation = 0.000456922
+shape = SubResource( 2 )
+[connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
+[connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
