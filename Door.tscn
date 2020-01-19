@@ -7,6 +7,7 @@
 extents = Vector2( 16, 17 )
 
 [node name="Door" type="Area2D"]
+editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]

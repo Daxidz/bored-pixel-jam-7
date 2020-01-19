@@ -2,7 +2,7 @@ extends Area2D
 
 onready var helpers = get_node("/root/helpers")
 onready var global = get_node("/root/global")
-var Mob = preload("res://Mob.tscn")
+var Mob = preload("res://actors/enemies/Mob.tscn")
 var Door = preload("res://Door.tscn")
 
 export var size_tiles: Vector2 = Vector2.ZERO
@@ -71,9 +71,10 @@ func add_door(direction, id_neighboor):
 	# Place door and init its neighbor_id
 	door.position = pos * 32
 	door.id_neighboor = id_neighboor
+	door.orientation = direction
 	# The switch_to_room signal is emitted when the door is enterd by the player
 	# We connect it to the GameManager to let it manage what should happen
-	door.connect("switch_to_room", get_node("/root/Main/GameManager"), "change_room")
+	door.connect("switch_to_room", get_node("/root/Main/GameManager"), "on_door_entered")
 	$Doors.add_child(door)
 	
 func add_drug(drug, pos):
