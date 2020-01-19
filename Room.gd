@@ -2,12 +2,13 @@ extends Area2D
 
 onready var helpers = get_node("/root/helpers")
 onready var global = get_node("/root/global")
-var Mob = preload("res://actors/enemies/Mob.tscn")
+var Janitor = preload("res://actors/Mobs/Janitor/Janitor.tscn")
+var Nurse = preload("res://actors/Mobs/Nurse/Nurse.tscn")
+var Surgeon = preload("res://actors/Mobs/Surgeon/Surgeon.tscn")
 var Door = preload("res://Door.tscn")
 
 export var size_tiles: Vector2 = Vector2.ZERO
 enum Orientations {NORTH, EAST, SOUTH, WEST}
-
 
 export var show_border: bool = false
 
@@ -40,14 +41,26 @@ func _ready():
 # Add mobs to the Room
 # types is an array of types
 func add_mob(type, pos):
-	var mob = Mob.instance()
-	mob.position = pos * 32
-	$Mobs.add_child(mob)
+	var janitor = Janitor.instance()
+	var nurse = Nurse.instance()
+	var surgeon = Surgeon.instance()
+	
+	var rand = randi()%3
+	
+	match rand:
+		0:
+			janitor.position = pos * 32
+			$Mobs.add_child(janitor)
+		1:
+			nurse.position = pos * 32
+			$Mobs.add_child(nurse)
+		2:
+			surgeon.position = pos * 32
+			$Mobs.add_child(surgeon)
 
 func set_size(size):
     self.size_tiles = size
 	
-
 func add_door(direction, id_neighboor):
 	var door = Door.instance()
 	

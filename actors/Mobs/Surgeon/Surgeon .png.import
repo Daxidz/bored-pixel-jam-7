@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/frame4.png-749fb38192f2ff7eebe2efbca9a4711c.stex"
+path="res://.import/Surgeon .png-3a0813388f68dc7b942ce10fd725514d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/enemies/assets/frame4.png"
-dest_files=[ "res://.import/frame4.png-749fb38192f2ff7eebe2efbca9a4711c.stex" ]
+source_file="res://actors/Mobs/Surgeon/Surgeon .png"
+dest_files=[ "res://.import/Surgeon .png-3a0813388f68dc7b942ce10fd725514d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
