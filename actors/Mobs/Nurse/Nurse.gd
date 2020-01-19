@@ -1,31 +1,18 @@
 extends KinematicBody2D
 
+var player = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	show()
+	player = get_node("/root/Main/GameManager/Player")
 
-export var run_speed = 300
-const DEFAULT_MASS = 2.0
-var velocity = Vector2.ZERO
-var player = null
+var bandage = preload("res://actors/Mobs/Nurse/Projectile.tscn")
 
-func _physics_process(delta):
-	
-	velocity = Vector2.ZERO
-	var desired_velocity = Vector2.ZERO
-	var steering = Vector2.ZERO
-	var mouse_pos = get_global_mouse_position()
-	
+func shotProjectile(target):
+	var proj = bandage.instance()
+	get_parent().add_child(proj)
+	proj.shoot(self.position, target)
 
+func _on_Timer_timeout():
 	if player:
-		desired_velocity = (player.position - position).normalized() * run_speed
-		steering = (desired_velocity - velocity) / DEFAULT_MASS
-		#print(velocity)
-		velocity = velocity + steering
-		velocity = move_and_slide(velocity)
-		#position = position.linear_interpolate(player.position, delta * run_speed)
-
-func _on_DetectRadius_body_entered(body):
-	if body.get_name() == "Player":
-    player = body
+		shotProjectile(player.position)
 

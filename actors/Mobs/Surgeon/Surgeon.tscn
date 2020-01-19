@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://actors/Mobs/Janitor/Janitor.gd" type="Script" id=1]
+[ext_resource path="res://actors/Mobs/Surgeon/Surgeon.gd" type="Script" id=1]
 [ext_resource path="res://actors/Mobs/Surgeon/Surgeon .png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -18,8 +18,6 @@ script = ExtResource( 1 )
 [node name="EnemyHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.244179, 6.47059 )
 shape = SubResource( 1 )
-
-[node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
