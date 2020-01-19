@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal use
+signal player_hp_change
 
 signal drug_taken
 
@@ -25,18 +26,24 @@ var screen_size
 var taking_drug = false
 var current_drug = null
 
+var dead
+
 # 
-const BASE_HP = 3
-var hp
+const BASE_HP = 4
+var hp = BASE_HP
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	hp = BASE_HP
+	dead = false
+	
 	
 	 
 func _physics_process(delta):
 
+	if dead:
+		return
+		
 	input_velocity = Vector2.ZERO
 	input_velocity.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input_velocity.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -63,6 +70,10 @@ func set_camera(is_current):
 	
 func _process(delta):
 	var animation
+	
+	if dead:
+		return
+	
 	if input_velocity.x != 0:
 		animation = "side_move"
 		# Update Sprite orientation when side running
@@ -78,7 +89,6 @@ func _process(delta):
 			animation = "front_move"
 	else:
 		animation = "idle"
-	pass
 	
 	
 	if taking_drug:
@@ -97,8 +107,39 @@ func take_drug(drug):
 	current_drug.apply_effects(self)
 	taking_drug = true
 	emit_signal("drug_taken")
+	
+	
+var taking_dmg = false
+
+		
+func take_damage(amount):
+	
+	if not taking_dmg:
+		taking_dmg = true
+		hp -= 1
+		emit_signal("player_hp_change", hp)
+		make_invincible()
+	
+
+func flicker(time):
+	# Flicker 4 times
+	for i in time :
+		$Sprite.self_modulate.a = 0.1
+		yield(get_tree().create_timer(0.25), "timeout")
+		$Sprite.self_modulate.a = 1.0
+		yield(get_tree().create_timer(0.25), "timeout")
+		taking_dmg = false
+
+func make_invincible():
+	$CollisionShape2D.set_deferred("disabled", true);
+	flicker(2)
+	$CollisionShape2D.set_deferred("disabled", false);
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "take_drug":
 		taking_drug = false
 	pass # Replace with function body.
+	
+func die():
+	visible = false
+	dead = true

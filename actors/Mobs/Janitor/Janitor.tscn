@@ -10,8 +10,8 @@ extents = Vector2( 8.42397, 14.4673 )
 radius = 86.2016
 
 [node name="Janitor" type="KinematicBody2D" groups=[
-"enemies",
 "hurtbox",
+"enemies",
 ]]
 script = ExtResource( 1 )
 
@@ -30,7 +30,7 @@ hframes = 3
 editor/display_folded = true
 
 [node name="RadiusHitbox" type="CollisionShape2D" parent="DetectRadius"]
-position = Vector2( 0, -3.8147e-06 )
+position = Vector2( 0, -3.8147e-006 )
 rotation = 0.000456922
 shape = SubResource( 2 )
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]

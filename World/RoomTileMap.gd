@@ -4,8 +4,6 @@ onready var global = get_node("/root/global")
 onready var room_size = get_parent().size_tiles
 
 func _ready():
-	
-	print("The tilemap size is: ", room_size)
 
 	var height = room_size.y
 	var width = room_size.x
@@ -42,7 +40,7 @@ func place_wall(pos):
 		flip_v = pos.y == room_size.y-1
 		flip_h = pos.x == 0
 	else:
-		if randi() % 4 == 0:
+		if randi() % 7 == 0:
 			tile = tile_set.find_tile_by_name("wall_window")
 		else:
 			tile = tile_set.find_tile_by_name("wall")
@@ -54,11 +52,3 @@ func place_wall(pos):
 
 func is_corner(pos):
 	return pos == Vector2(0,0) or pos == Vector2(0, room_size.y-1) or pos == Vector2(room_size.x-1, 0) or pos == Vector2(room_size.x-1, room_size.y-1)
-#
-#func _get_subtile_coord(id):
-#	var tiles = tile_set
-#	print(tile_set.get_tiles_ids())
-#	var rect = tile_set.tile_get_region(id)
-#	var x = randi() % int(rect.size.x / tiles.autotile_get_size(id).x)
-#	var y = randi() % int(rect.size.y / tiles.autotile_get_size(id).y)
-#	return Vector2(x, y)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://GameManager.gd" type="Script" id=1]
 [ext_resource path="res://World/DungeonGenerator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Camera2D.gd" type="Script" id=3]
-[ext_resource path="res://music/maintheme_1.wav" type="AudioStream" id=4]
+[ext_resource path="res://retro_gaming.tres" type="DynamicFont" id=4]
+[ext_resource path="res://HPs.gd" type="Script" id=5]
+[ext_resource path="res://music/maintheme_1.wav" type="AudioStream" id=6]
 
 [node name="GameManager" type="Node"]
 script = ExtResource( 1 )
@@ -16,5 +18,32 @@ script = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
+[node name="RestartButton" type="Button" parent="HUD"]
+margin_left = 280.0
+margin_top = 220.0
+margin_right = 369.0
+margin_bottom = 290.0
+custom_fonts/font = ExtResource( 4 )
+text = "Restart"
+
+[node name="GAMEOVER" type="Label" parent="HUD"]
+margin_left = 220.0
+margin_top = 120.0
+margin_right = 332.0
+margin_bottom = 141.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.168627, 0.0666667, 0.0666667, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "GAME OVER "
+
+[node name="HPs" type="HBoxContainer" parent="HUD"]
+margin_left = 340.0
+margin_right = 639.0
+margin_bottom = 70.0
+alignment = 2
+script = ExtResource( 5 )
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 6 )
+[connection signal="pressed" from="HUD/RestartButton" to="." method="_on_RestartButton_pressed"]

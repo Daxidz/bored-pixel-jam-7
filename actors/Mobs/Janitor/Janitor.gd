@@ -23,9 +23,17 @@ func _physics_process(delta):
 		#print(velocity)
 		velocity = velocity + steering
 		velocity = move_and_slide(velocity)
+		if get_slide_count() != 0:
+			var collision = get_slide_collision(0)
+			if collision.collider.name == "Player":
+				collision.collider.take_damage(1)
 		#position = position.linear_interpolate(player.position, delta * run_speed)
 
 func _on_DetectRadius_body_entered(body):
 	if body.get_name() == "Player":
-    player = body
+    	player = body
+		
+func _on_DetectRadius_body_exited(body):
+	if body.get_name() == "Player":
+    	player = null
 

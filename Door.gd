@@ -15,7 +15,6 @@ func _on_Door_body_entered(body):
 
 
 func _on_DetectArea_body_entered(body):
-	print(get_parent().get_parent())
 	if get_parent().get_parent().cleared:
 		if body.get_name() == "Player":
 			$AnimationPlayer.play("open")

@@ -2,6 +2,7 @@ extends Node
 
 const Room: PackedScene = preload("res://World/Room.tscn")
 var Drug: PackedScene = preload("res://World/drug/Drug.tscn")
+var Bed: PackedScene = preload("res://World/Bed.tscn")
 
 onready var helpers = get_node("/root/helpers")
 onready var global = get_node("/root/global")
@@ -15,6 +16,9 @@ const MIN_SIZE = global.TILE_SIZE * MIN_NB_TILES
 
 const MAX_ENEMIES = 5
 const MIN_ENEMIES = 3
+
+const MAX_OBSTACLES = 7
+const MIN_OBSTACLES = 5
 
 const MAP_ROOM_SIZE = 80
 
@@ -46,7 +50,9 @@ func _generate_room():
 	add_room(room)
 	room.disable()
 	add_room_to_map(room)
+	add_obstacle_to_room(room)
 	$Rooms.add_child(room)
+	
 
 func add_room_to_map(room):
 	$Map.add_room(room)
@@ -65,7 +71,6 @@ func add_room(_room):
 	
 	# Check for the first room
 	if cur_nb == 0:
-		print("First room added!")
 		pos = Vector2(0, 0)
 	else:
 		# Find a valid neighbors (room + direction relative to the room)
@@ -106,19 +111,35 @@ func add_doors_to_rooms():
 			
 # TODO add all doors
 func add_doors_to_room(room):
-	print("Trying to add doors to room : ", room)
 	for dir in Orientations.values():
 		if room.neighbors[dir] != -1:
 			room.add_door(dir, room.neighbors[dir])
 	
+	
 func add_drug_to_room(room):
 	var position = Vector2.ZERO
 	var drug
-	position.x = helpers.randi_limited(1, room.size_tiles.x-1)
-	position.y = helpers.randi_limited(1, room.size_tiles.y-1)
-	drug = Drug.instance()
-	drug
-	room.add_drug(drug, position)
+	var valid = false
+	while not valid:
+		position.x = helpers.randi_limited(1, room.size_tiles.x-1)
+		position.y = helpers.randi_limited(1, room.size_tiles.y-1)
+		drug = Drug.instance()
+		valid = room.add_drug(drug, position)
+	
+	
+func add_obstacle_to_room(room):
+	var positions
+	var position = Vector2.ZERO
+	var nb_obstacles = helpers.randi_limited(MIN_OBSTACLES, MAX_OBSTACLES)
+	var valid = false
+	
+	for i in nb_obstacles:
+		
+		while not valid:
+			position.x = helpers.randi_limited(2, room.size_tiles.x-2)
+			position.y = helpers.randi_limited(2, room.size_tiles.y-2)
+			var bed = Bed.instance()
+			valid = room.add_bed(bed, position)
 	
 
 func validate_room(room, direction) -> bool:

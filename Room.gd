@@ -16,6 +16,8 @@ const MAP_SIZE = 50
 
 var id: int = -1
 
+var tiles_taken = []
+
 # A room can only be non visited once, when the player
 # first enters it
 var visited = false
@@ -32,11 +34,8 @@ var pos_on_minimap
 
 func _init():
 	self.neighbors.resize(4)
-	pass
-
-func _ready():
-	print("Room with tilesize", size_tiles, " ready")
-
+	self.tiles_taken.resize(1)
+	
 	
 # Add mobs to the Room
 # types is an array of types
@@ -90,10 +89,24 @@ func add_door(direction, id_neighboor):
 	door.connect("switch_to_room", get_node("/root/Main/GameManager"), "on_door_entered")
 	$Doors.add_child(door)
 	
-func add_drug(drug, pos):
-	drug.position = pos * 32
-	add_child(drug)
 	
+func add_drug(drug, pos):
+	if not (pos in tiles_taken):
+		drug.position = (pos * 32)
+		add_child(drug)
+		tiles_taken.push_back(pos)
+		return true
+	return false
+	
+func add_bed(bed, pos):
+	if not (pos in tiles_taken):
+		bed.position = pos * 32
+		$Beds.add_child(bed)
+		tiles_taken.push_back(pos)
+		tiles_taken.push_back(Vector2(pos.x+1, pos.y))
+		return true
+	return false
+
 	
 func disable():
 	$TileMap.set_collision_layer_bit(0, false)
@@ -109,7 +122,13 @@ func disable():
 		door.set_collision_mask_bit(0, false)
 		door.set_collision_mask_bit(1, true)
 		door.visible = false
-#		door.get_node("Sprite").modulate = Color("#f40707")
+		
+	for bed in $Beds.get_children():
+		bed.set_collision_layer_bit(0, false)
+		bed.set_collision_layer_bit(1, true)
+		bed.set_collision_mask_bit(0, false)
+		bed.set_collision_mask_bit(1, true)
+		bed.visible = false
 		
 	visible = false
 	
@@ -127,6 +146,13 @@ func enable():
 		door.set_collision_mask_bit(0, true)
 		door.set_collision_mask_bit(1, false)
 		door.visible = true
+		
+	for bed in $Beds.get_children():
+		bed.set_collision_layer_bit(0, true)
+		bed.set_collision_layer_bit(1, false)
+		bed.set_collision_mask_bit(0, true)
+		bed.set_collision_mask_bit(1, false)
+		bed.visible = true
 	
 	visible = true
 	

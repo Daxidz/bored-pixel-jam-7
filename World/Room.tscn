@@ -17,3 +17,7 @@ script = ExtResource( 3 )
 [node name="Doors" type="Node" parent="."]
 
 [node name="Mobs" type="Node" parent="."]
+
+[node name="Beds" type="Node" parent="."]
+
+[node name="Flasks" type="Node" parent="."]

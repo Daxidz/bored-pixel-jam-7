@@ -24,17 +24,28 @@ func init_dungeon():
 	$DungeonGenerator.create_dungeon(MIN_ROOMS + (randi() % (MAX_ROOMS - MIN_ROOMS)))
 
 
-func start_game():
+func start_game():		
 	randomize()
+	$HUD/GAMEOVER.visible = false
+	$HUD/RestartButton.visible = false
 	init_dungeon()
 	current_room = null
+	
+	if player:
+		player.free()
+	
 	player = Player.instance()
 	player.connect("drug_taken", self, "room_cleared")
+	player.connect("player_hp_change", self, "update_hp")
+	
+	update_hp(player.hp)
+	
+	add_child(player)
+	
 	change_room(0)
 	
 	player.position = current_room.size_tiles * 32 / 2
 	
-	add_child(player)
 	
 	$AudioStreamPlayer.play()
 	
@@ -74,8 +85,6 @@ func change_room(new_room_id):
 	current_room = new_room
 	
 	
-	
-
 func on_door_entered(door):
 	
 	if not current_room.cleared:
@@ -104,4 +113,17 @@ func on_door_entered(door):
 func room_cleared():
 	current_room.cleared = true
 	current_room.remove_enemies()
-	pass
+	
+func update_hp(new_hp):
+	$HUD/HPs.update_hp(new_hp)
+	
+	if new_hp == 0:
+		game_over()
+
+func game_over():
+	$HUD/GAMEOVER.visible = true
+	$HUD/RestartButton.visible = true
+	player.die()
+
+func _on_RestartButton_pressed():
+	start_game()
