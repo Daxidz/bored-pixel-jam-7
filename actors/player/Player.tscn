@@ -99,7 +99,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 4
-frame = 17
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.5

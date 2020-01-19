@@ -55,13 +55,13 @@ func add_door(direction, id_neighboor):
 	
 	match direction:
 		Orientations.NORTH:
-			pos.x += size_tiles.x/2
-		Orientations.SOUTH:
-			pos.y += size_tiles.y - 1
 			pos.x += int(size_tiles.x/2)
-			door.get_node("Sprite").flip_v = true
+		Orientations.SOUTH:
+			pos.y += size_tiles.y
+			pos.x += int(size_tiles.x/2)
+			door.rotation_degrees = 180
 		Orientations.WEST:
-			pos.y += size_tiles.y/2
+			pos.y += int(size_tiles.y/2)
 			door.rotation_degrees = -90
 		Orientations.EAST:
 			pos.y += int(size_tiles.y/2)

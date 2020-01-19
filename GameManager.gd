@@ -93,7 +93,7 @@ func on_door_entered(door):
 			new_player_pos.y = 2
 		global.Orientations.EAST:
 			new_player_pos.x = 2
-			new_player_pos.y = current_room.size_tiles.y/ 2
+			new_player_pos.y = current_room.size_tiles.y / 2
 		global.Orientations.WEST:
 			new_player_pos.x = current_room.size_tiles.x - 2
 			new_player_pos.y = current_room.size_tiles.y / 2

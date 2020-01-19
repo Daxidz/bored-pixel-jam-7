@@ -3,7 +3,7 @@ extends "res://World/drug/effects/effect.gd"
 var scale_base
 
 func apply_on_player(player):
-	print("scaling down the player")
+	print("scaling up the player")
 	scale_base = player.scale
 	player.scale *= 1.5
 	

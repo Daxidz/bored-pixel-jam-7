@@ -5,7 +5,7 @@ var base_modulate
 func apply_on_player(player):
 	print("invisible")
 	base_modulate = player.get_node("Sprite").modulate
-	player.get_node("Sprite").modulate = Color("#07ffffff")
+	player.get_node("Sprite").modulate = Color("#17ffffff")
 	
 func remove_from_player(player):
 	print("visible")
