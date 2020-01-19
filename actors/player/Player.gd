@@ -30,7 +30,13 @@ var dead
 
 # 
 const BASE_HP = 4
-var hp = BASE_HP
+var hp = BASE_HP setget set_hp
+
+
+func set_hp(new_hp):
+	print("HP CHANGING TO ", new_hp)
+	hp = new_hp
+	emit_signal("player_hp_change", hp)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -116,8 +122,7 @@ func take_damage(amount):
 	
 	if not taking_dmg:
 		taking_dmg = true
-		hp -= 1
-		emit_signal("player_hp_change", hp)
+		set_hp(hp-1)
 		make_invincible()
 	
 

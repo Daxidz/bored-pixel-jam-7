@@ -16,8 +16,7 @@ func shoot(start_pos, end_pos):
 	self.global_position = start_pos
 	direction = (end_pos - start_pos).normalized()
 
-
-
 func _on_Bandage_body_entered(body):
 	if body.get_name() == "Player":
+		body.take_damage(1)
 		queue_free()

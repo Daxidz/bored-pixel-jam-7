@@ -24,7 +24,7 @@ func init_dungeon():
 	$DungeonGenerator.create_dungeon(MIN_ROOMS + (randi() % (MAX_ROOMS - MIN_ROOMS)))
 
 
-func start_game():		
+func start_game():
 	randomize()
 	$HUD/GAMEOVER.visible = false
 	$HUD/RestartButton.visible = false

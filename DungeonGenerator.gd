@@ -98,6 +98,7 @@ func add_room(_room):
 func populate_room(room):
 	var nb = helpers.randi_limited(MIN_ENEMIES, MAX_ENEMIES)
 	var position = Vector2.ZERO
+	
 	for i in nb:
 		position.x = helpers.randi_limited(1, room.size_tiles.x-1)
 		position.y = helpers.randi_limited(1, room.size_tiles.y-1)

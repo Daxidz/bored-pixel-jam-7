@@ -40,9 +40,17 @@ func _init():
 # Add mobs to the Room
 # types is an array of types
 func add_mob(type, pos):
+	
+	
+	if tiles_taken.has(pos):
+		return false
+		
 	var janitor = Janitor.instance()
 	var nurse = Nurse.instance()
 	var surgeon = Surgeon.instance()
+	
+	tiles_taken.push_back(pos)
+	tiles_taken.push_back(Vector2(pos.x, pos.y+1))
 	
 	var rand = randi()%3
 	
@@ -56,7 +64,9 @@ func add_mob(type, pos):
 		2:
 			surgeon.position = pos * 32
 			$Mobs.add_child(surgeon)
-
+	
+	return true
+	
 func set_size(size):
     self.size_tiles = size
 	
@@ -91,21 +101,22 @@ func add_door(direction, id_neighboor):
 	
 	
 func add_drug(drug, pos):
-	if not (pos in tiles_taken):
-		drug.position = (pos * 32)
-		add_child(drug)
-		tiles_taken.push_back(pos)
-		return true
-	return false
+	if tiles_taken.has(pos):
+		print("cannot add bed")
+		return false
+	drug.position = (pos * 32)
+	add_child(drug)
+	tiles_taken.push_back(pos)
+	return true
 	
 func add_bed(bed, pos):
-	if not (pos in tiles_taken):
-		bed.position = pos * 32
-		$Beds.add_child(bed)
-		tiles_taken.push_back(pos)
-		tiles_taken.push_back(Vector2(pos.x+1, pos.y))
-		return true
-	return false
+	if tiles_taken.has(pos):
+		return false
+	bed.position = pos * 32
+	$Beds.add_child(bed)
+	tiles_taken.push_back(pos)
+	tiles_taken.push_back(Vector2(pos.x+1, pos.y))
+	return true
 
 	
 func disable():
