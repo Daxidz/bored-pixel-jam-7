@@ -2,8 +2,8 @@ extends Area2D
 
 const EFFECTS_DIR = "res://World/drug/effects/"
 
-#const EFFECTS = ["speed_up", "hp_to_1", "invisible", "vision_reduced", "speed_down"]
-const EFFECTS = ["size_down", "size_up"]
+const EFFECTS = ["speed_up", "hp_to_1", "invisible", "vision_reduce", "speed_down", "size_up", "size_down"]
+#const EFFECTS = ["size_down", "size_up"]
 
 var effects = []
 

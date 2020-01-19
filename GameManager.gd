@@ -1,6 +1,8 @@
 extends Node
 
-var Player = preload("res://actors/player/Player.tscn") 
+var Player = preload("res://actors/player/Player.tscn")
+
+onready var global = get_node("/root/global")
 
 const MAX_ROOMS = 6
 const MIN_ROOMS = 10
@@ -29,7 +31,12 @@ func start_game():
 	player = Player.instance()
 	player.connect("drug_taken", self, "room_cleared")
 	change_room(0)
+	
+	player.position = current_room.size_tiles * 32 / 2
+	
 	add_child(player)
+	
+	$AudioStreamPlayer.play()
 	
 	
 func _input(event):
@@ -45,9 +52,6 @@ func switch_camera():
 	player.set_camera(current_cam == Camera.PLAYER)
 	$Camera2D.current = current_cam == Camera.MAP
 	
-	
-
-
 
 func change_room(new_room_id):
 	var new_room
@@ -68,7 +72,33 @@ func change_room(new_room_id):
 		new_room.visited = true
 	
 	current_room = new_room
-	player.position = current_room.size_tiles * 32 / 2
+	
+	
+	
+
+func on_door_entered(door):
+	
+	if not current_room.cleared:
+			return
+			
+	var new_player_pos = Vector2.ZERO
+	change_room(door.id_neighboor)
+	
+	match door.orientation:
+		global.Orientations.NORTH:
+			new_player_pos.x = current_room.size_tiles.x / 2
+			new_player_pos.y = current_room.size_tiles.y - 2
+		global.Orientations.SOUTH:
+			new_player_pos.x = current_room.size_tiles.x / 2
+			new_player_pos.y = 2
+		global.Orientations.EAST:
+			new_player_pos.x = 2
+			new_player_pos.y = current_room.size_tiles.y/ 2
+		global.Orientations.WEST:
+			new_player_pos.x = current_room.size_tiles.x - 2
+			new_player_pos.y = current_room.size_tiles.y / 2
+			
+	player.position = new_player_pos * 32
 
 # Callback called when the player takes the drug in the current room
 func room_cleared():
