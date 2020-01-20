@@ -32,4 +32,34 @@ func _on_DetectRadius_body_entered(body):
 		player = body
 
 func _on_DetectRadius_body_exited(body):
-	player = null # Replace with function body.
+	if body.get_name() == "Player":
+		player = null # Replace with function body.
+
+func _process(delta):
+	
+	var a = velocity.angle()
+	var animation = ""
+		
+	var flip_x = false
+	
+	if (velocity.x == 0) and (velocity.y == 0):
+		animation = "idle"
+	elif (a > PI / 4) and (a < (PI * 3/4)):
+		animation = "walk_front"
+#	elif (a > ((PI * 5) / 4)) and (a < PI * 7 / 4):
+	elif (a < -PI / 4) and (a > (-PI * 3/4)):
+		animation = "walk_back"
+	else:
+		
+		animation = "walk_side"
+		if velocity.x < 0:
+			flip_x = true
+		else:
+			flip_x = false
+		
+	$Sprite.flip_h = flip_x
+	
+	
+	if animation != $AnimationPlayer.current_animation and animation != "":
+		$AnimationPlayer.play(animation)
+	pass

@@ -2,7 +2,7 @@ extends Node
 
 var Player = preload("res://actors/player/Player.tscn")
 #var Mob = preload("res://actors/Mobs/Nurse/Nurse.tscn")
-var Mob = preload("res://actors/Mobs/Janitor/Janitor.tscn")
+#var Mob = preload("res://actors/Mobs/Janitor/Janitor.tscn")
 #var Mob = preload("res://actors/Mobs/Surgeon/Surgeon.tscn")
 
 onready var global = get_node("/root/global")
@@ -51,9 +51,9 @@ func start_game():
 	current_room.visited = true
 	$DungeonGenerator.add_drug_to_room(current_room)
 	
-	var mob = Mob.instance()
-	current_room.get_node("Mobs").add_child(mob)
-	mob.position = current_room.size_tiles * 32 / 4
+#	var mob = Mob.instance()
+#	current_room.get_node("Mobs").add_child(mob)
+#	mob.position = current_room.size_tiles * 32 / 4
 	
 	player.position = current_room.size_tiles * 32 / 2
 	

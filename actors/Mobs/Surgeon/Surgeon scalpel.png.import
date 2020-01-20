@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Surgeon .png-3a0813388f68dc7b942ce10fd725514d.stex"
+path="res://.import/Surgeon scalpel.png-d1153e2509953ea8767543d86c9fda57.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/Mobs/Surgeon/Surgeon .png"
-dest_files=[ "res://.import/Surgeon .png-3a0813388f68dc7b942ce10fd725514d.stex" ]
+source_file="res://actors/Mobs/Surgeon/Surgeon scalpel.png"
+dest_files=[ "res://.import/Surgeon scalpel.png-d1153e2509953ea8767543d86c9fda57.stex" ]
 
 [params]
 

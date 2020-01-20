@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17.7997, 19.6205 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "walk_back"
 length = 0.5
 loop = true
@@ -23,8 +23,7 @@ tracks/0/keys = {
 "values": [ 6, 9 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "walk_front"
+[sub_resource type="Animation" id=3]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -58,8 +57,8 @@ tracks/0/keys = {
 }
 
 [node name="Janitor" type="KinematicBody2D" groups=[
-"enemies",
 "hurtbox",
+"enemies",
 ]]
 script = ExtResource( 1 )
 
@@ -71,9 +70,9 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
-frame = 1
+frame = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/walk_back = SubResource( 5 )
-anims/walk_front = SubResource( 2 )
+anims/walk_back = SubResource( 2 )
+anims/walk_front = SubResource( 3 )
 anims/walk_side = SubResource( 4 )
