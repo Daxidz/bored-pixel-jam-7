@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Nurse.png-69e6b7b62768e9eaa5e10f22eac325f2.stex"
+path="res://.import/Nurse terminé.png-718d98d3ac3c9baf3ffb44e6bccf392e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/Mobs/Nurse/Nurse.png"
-dest_files=[ "res://.import/Nurse.png-69e6b7b62768e9eaa5e10f22eac325f2.stex" ]
+source_file="res://actors/Mobs/Nurse/Nurse terminé.png"
+dest_files=[ "res://.import/Nurse terminé.png-718d98d3ac3c9baf3ffb44e6bccf392e.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
