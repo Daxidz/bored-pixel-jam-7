@@ -21,7 +21,7 @@ func _ready():
 	
 	
 func update_angle():
-	$Position2D.rotation_degrees += ANGLE_DELTA
+	$Position2D.rotation_degrees += ANGLE_DELTA - randi()%6
 	if $Position2D.rotation_degrees > 360:
 		queue_free()
 		emit_signal("over")
