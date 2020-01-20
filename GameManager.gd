@@ -45,11 +45,15 @@ func start_game():
 	# We do this there so the first room doesn't spawn mobs
 	current_room = $DungeonGenerator.get_room(0)
 	current_room.enable()
+	current_room.visited = true
 	$DungeonGenerator.add_drug_to_room(current_room)
 	
 	player.position = current_room.size_tiles * 32 / 2
 	
-	
+	var maintheme = randi() % 2 + 1
+#	var stream = load("res://music/maintheme" + str(maintheme) +".ogg")
+	var stream = load("res://music/maintheme1.ogg")
+	$AudioStreamPlayer.stream = stream
 	$AudioStreamPlayer.play()
 	
 	
@@ -102,7 +106,7 @@ func on_door_entered(door):
 			new_player_pos.y = current_room.size_tiles.y - 1.7
 		global.Orientations.SOUTH:
 			new_player_pos.x = current_room.size_tiles.x / 2
-			new_player_pos.y = 1.7
+			new_player_pos.y = 2.5
 		global.Orientations.EAST:
 			new_player_pos.x = 1.7
 			new_player_pos.y = current_room.size_tiles.y / 2

@@ -148,5 +148,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	pass # Replace with function body.
 	
 func die():
+	if current_drug:
+		current_drug.remove_effects(self)
 	visible = false
 	dead = true
