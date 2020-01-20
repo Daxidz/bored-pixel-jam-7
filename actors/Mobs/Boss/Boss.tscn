@@ -79,7 +79,7 @@ shape = SubResource( 4 )
 [node name="ProjectileTimer" type="Timer" parent="."]
 
 [node name="PhasesTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 2.0
 one_shot = true
 [connection signal="timeout" from="ProjectileTimer" to="." method="_on_ProjectileTimer_timeout"]
 [connection signal="timeout" from="PhasesTimer" to="." method="_on_PhasesTimer_timeout"]
