@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://actors/Mobs/Janitor/Janitor.gd" type="Script" id=1]
 [ext_resource path="res://actors/Mobs/Janitor/Untitled 2 3.png" type="Texture" id=2]
@@ -6,9 +6,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17.7997, 19.6205 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "walk_front"
-length = 0.65
+[sub_resource type="Animation" id=5]
+resource_name = "walk_back"
+length = 0.5
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -16,15 +17,49 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 3, 4, 5, 4 ]
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 6, 9 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk_front"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 3, 6 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk_side"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 9, 15 ]
 }
 
 [node name="Janitor" type="KinematicBody2D" groups=[
-"hurtbox",
 "enemies",
+"hurtbox",
 ]]
 script = ExtResource( 1 )
 
@@ -36,7 +71,9 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 3
-frame = 4
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/walk_back = SubResource( 5 )
 anims/walk_front = SubResource( 2 )
+anims/walk_side = SubResource( 4 )
