@@ -4,6 +4,7 @@ signal over
 
 
 var Projectile = preload("res://actors/Mobs/Boss/ProjectileBoss.tscn")
+onready var global = get_node("/root/global")
 
 # each 10°
 const ANGLE_DELTA = 15
@@ -14,23 +15,24 @@ var attacking
 func place(position):
 	$Position2D.position = position
 
+
 func _ready():
 	$Timer.start()
 	
 	
 func update_angle():
-	$Position2D.rotation_degrees += ANGLE_DELTA
+	$Position2D.rotation_degrees += ANGLE_DELTA - randi()%6
 	if $Position2D.rotation_degrees > 360:
 		queue_free()
 		emit_signal("over")
 
 
 func shoot(target):
-	
 	var projectile = Projectile.instance()
 	projectile.set_dmg(1)
-	get_parent().add_child(projectile)
-	projectile.shoot($Position2D.position, target + $Position2D.position)
+	projectile.start(get_parent().position / global.TILE_SIZE, $Position2D.rotation)
+	get_parent().add_child(projectile)	
+#	projectile.shoot($Position2D.position, target + $Position2D.position)
 
 
 func _on_Timer_timeout():
@@ -40,6 +42,6 @@ func _on_Timer_timeout():
 	
 	var direction = Vector2(cos(angle), sin(angle)).normalized()
 	
-	print("shooting at angle ", direction)  
+#	print("shooting at angle ", direction)  
 	shoot(direction)
 	pass # Replace with function body.
