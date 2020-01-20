@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bandage.png-32a1fb317520285d9802f6b501e7b350.stex"
+path="res://.import/boss.png-878957643fa6beeb2d0fd4cd690a6a50.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/Mobs/Nurse/bandage.png"
-dest_files=[ "res://.import/bandage.png-32a1fb317520285d9802f6b501e7b350.stex" ]
+source_file="res://actors/Mobs/Boss/boss.png"
+dest_files=[ "res://.import/boss.png-878957643fa6beeb2d0fd4cd690a6a50.stex" ]
 
 [params]
 

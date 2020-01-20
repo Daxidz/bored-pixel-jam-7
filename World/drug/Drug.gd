@@ -2,8 +2,8 @@ extends Area2D
 
 const EFFECTS_DIR = "res://World/drug/effects/"
 
-const EFFECTS = ["speed_up", "hp_to_1", "invisible", "vision_reduce", "speed_down", "size_up", "size_down"]
-#const EFFECTS = ["size_down", "size_up"]
+const EFFECTS = ["speed_up", "hp_to_1", "invisible", "vision_reduce", "speed_down", "size_up", "size_down", "hp_plus_2"]
+#const EFFECTS = ["hp_plus_2"]
 
 var effects = []
 
@@ -11,6 +11,7 @@ func _ready():
 	var effect_path = EFFECTS_DIR + EFFECTS[randi()%EFFECTS.size()] + ".gd"
 	var effect = load(effect_path).new()
 	effects.push_back(effect)
+	$AnimationPlayer.play("flip")
 	
 func _on_Drug_body_entered(body):
 	if body.name == "Player":

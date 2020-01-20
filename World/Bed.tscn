@@ -3,7 +3,7 @@
 [ext_resource path="res://World/assets/bed.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 15.5222 )
+extents = Vector2( 26.9986, 11.5062 )
 
 [node name="Bed" type="StaticBody2D"]
 

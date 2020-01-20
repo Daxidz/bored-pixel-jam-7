@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://World/BossRoom.gd" type="Script" id=1]
+[ext_resource path="res://room_tiles_separated.tres" type="TileSet" id=2]
+[ext_resource path="res://actors/Mobs/Boss/Boss.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Door.tscn" type="PackedScene" id=5]
+
+[node name="BossRoom" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 0, -1073741820, 0, 1, 5, 0, 2, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 8, 5, 0, 9, 5, 0, 10, 5, 0, 11, 5, 0, 12, 5, 0, 13, 5, 0, 14, 5, 0, 15, 5, 0, 16, 5, 0, 17, 5, 0, 18, 5, 0, 19, 4, 0, 65536, -1073741819, 0, 65555, -1610612731, 0, 131072, -1073741819, 0, 131091, -1610612731, 0, 196608, -1073741819, 0, 196627, -1610612731, 0, 262144, -1073741819, 0, 262163, -1610612731, 0, 327680, -1073741819, 0, 327699, -1610612731, 0, 393216, -1073741819, 0, 393235, -1610612731, 0, 458752, -1073741819, 0, 458771, -1610612731, 0, 524288, -1073741819, 0, 524307, -1610612731, 0, 589824, -1073741819, 0, 589843, -1610612731, 0, 655360, -1073741819, 0, 655379, -1610612731, 0, 720896, 1610612740, 0, 720897, 1610612741, 0, 720898, 1610612741, 0, 720899, 1610612741, 0, 720900, 1610612741, 0, 720901, 1610612741, 0, 720902, 1610612741, 0, 720903, 1610612741, 0, 720904, 1610612741, 0, 720905, 1610612741, 0, 720906, 1610612741, 0, 720907, 1610612741, 0, 720908, 1610612741, 0, 720909, 1610612741, 0, 720910, 1610612741, 0, 720911, 1610612741, 0, 720912, 1610612741, 0, 720913, 1610612741, 0, 720914, 1610612741, 0, 720915, -1610612732, 0 )
+
+[node name="Boss" parent="." instance=ExtResource( 3 )]
+position = Vector2( 308.632, 85.4737 )
+z_index = 1
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 322.105, 316 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 320, 192 )
+current = true
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door" parent="Doors" instance=ExtResource( 5 )]
+position = Vector2( 292.632, 0 )
+
+[node name="Door2" parent="Doors" instance=ExtResource( 5 )]
+position = Vector2( 320, 384 )
+rotation = 3.14159

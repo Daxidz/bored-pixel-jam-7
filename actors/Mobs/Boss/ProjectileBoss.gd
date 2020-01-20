@@ -3,6 +3,12 @@ extends Area2D
 const PROJECTILE_SPEED = 200
 var direction
 
+var dmg
+
+
+func set_dmg(dmg):
+	self.dmg = dmg
+
 func _ready():
 	set_process(true)
 
@@ -18,7 +24,7 @@ func shoot(start_pos, end_pos):
 
 func _on_Bandage_body_entered(body):
 	if body.get_name() == "Player":
-		body.take_damage(1)
+		body.take_damage(dmg)
 		queue_free()
 		
 	if body.get_name() == "TileMap":

@@ -134,13 +134,18 @@ func add_obstacle_to_room(room):
 	var nb_obstacles = helpers.randi_limited(MIN_OBSTACLES, MAX_OBSTACLES)
 	var valid = false
 	
-	for i in nb_obstacles:
-		
+	print(room, " trying to add ", nb_obstacles, "beds")
+	for i in range(nb_obstacles):
+		print(i)
+		valid = false
 		while not valid:
-			position.x = helpers.randi_limited(2, room.size_tiles.x-2)
-			position.y = helpers.randi_limited(2, room.size_tiles.y-2)
+			position.x = helpers.randi_limited(2, room.size_tiles.x-3)
+			position.y = helpers.randi_limited(3, room.size_tiles.y-3)
 			var bed = Bed.instance()
 			valid = room.add_bed(bed, position)
+			print("Puttin bed at ", position, " ", valid)
+			if not valid:
+				bed.free()
 	
 
 func validate_room(room, direction) -> bool:

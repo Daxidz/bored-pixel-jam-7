@@ -8,5 +8,5 @@ func apply_on_player(player):
 	player.set_hp(1)
 	
 func remove_from_player(player):
-	print("HP going back to normal")
+	print("HP going back to normal (", base_hp, ")")
 	player.set_hp(base_hp)

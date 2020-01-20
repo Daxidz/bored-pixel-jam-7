@@ -7,8 +7,8 @@
 extents = Vector2( 8.42397, 20.392 )
 
 [node name="Nurse" type="KinematicBody2D" groups=[
-"enemies",
 "hurtbox",
+"enemies",
 ]]
 script = ExtResource( 1 )
 
@@ -22,7 +22,6 @@ position = Vector2( -9, 0 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 3
-
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

@@ -30,10 +30,12 @@ var dead
 
 # 
 const BASE_HP = 4
-var hp = BASE_HP setget set_hp
+var hp = BASE_HP 
 
 
 func set_hp(new_hp):
+	if (new_hp > BASE_HP or new_hp < 0):
+		return
 	print("HP CHANGING TO ", new_hp)
 	hp = new_hp
 	emit_signal("player_hp_change", hp)

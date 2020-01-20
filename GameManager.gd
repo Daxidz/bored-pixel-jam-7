@@ -42,7 +42,10 @@ func start_game():
 	
 	add_child(player)
 	
-	change_room(0)
+	# We do this there so the first room doesn't spawn mobs
+	current_room = $DungeonGenerator.get_room(0)
+	current_room.enable()
+	$DungeonGenerator.add_drug_to_room(current_room)
 	
 	player.position = current_room.size_tiles * 32 / 2
 	
@@ -96,15 +99,15 @@ func on_door_entered(door):
 	match door.orientation:
 		global.Orientations.NORTH:
 			new_player_pos.x = current_room.size_tiles.x / 2
-			new_player_pos.y = current_room.size_tiles.y - 2
+			new_player_pos.y = current_room.size_tiles.y - 1.7
 		global.Orientations.SOUTH:
 			new_player_pos.x = current_room.size_tiles.x / 2
-			new_player_pos.y = 2
+			new_player_pos.y = 1.7
 		global.Orientations.EAST:
-			new_player_pos.x = 2
+			new_player_pos.x = 1.7
 			new_player_pos.y = current_room.size_tiles.y / 2
 		global.Orientations.WEST:
-			new_player_pos.x = current_room.size_tiles.x - 2
+			new_player_pos.x = current_room.size_tiles.x - 1.7
 			new_player_pos.y = current_room.size_tiles.y / 2
 			
 	player.position = new_player_pos * 32
