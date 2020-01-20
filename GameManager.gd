@@ -30,9 +30,9 @@ func start_game():
 	$HUD/RestartButton.visible = false
 	init_dungeon()
 	current_room = null
-	
-	if player:
-		player.free()
+	if is_instance_valid(player):
+		if player:
+			player.free()
 	
 	player = Player.instance()
 	player.connect("drug_taken", self, "room_cleared")
