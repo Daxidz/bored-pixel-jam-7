@@ -1,10 +1,9 @@
 extends KinematicBody2D
 
-const PROJECTILE_SPEED = 200
 var direction
 
 var dmg
-var speed = 250
+var speed = 200
 var velocity = Vector2()
 var projectile_damage = 1
 
