@@ -124,7 +124,7 @@ func take_damage(amount):
 	
 	if not taking_dmg:
 		taking_dmg = true
-		set_hp(hp-1)
+		set_hp(hp-amount)
 		make_invincible()
 	
 

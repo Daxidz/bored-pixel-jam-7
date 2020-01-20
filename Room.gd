@@ -56,13 +56,13 @@ func add_mob(type, pos):
 	
 	match rand:
 		0:
-			janitor.position = pos * 32
+			janitor.call_deferred("set", "position", pos * global.TILE_SIZE)
 			$Mobs.add_child(janitor)
 		1:
-			nurse.position = pos * 32
+			nurse.call_deferred("set", "position", pos * global.TILE_SIZE)
 			$Mobs.add_child(nurse)
 		2:
-			surgeon.position = pos * 32
+			surgeon.call_deferred("set", "position", pos * global.TILE_SIZE)
 			$Mobs.add_child(surgeon)
 	
 	return true

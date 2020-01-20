@@ -60,5 +60,6 @@ func clear():
     self.positions.clear()
 
     for room in rooms:
-        room.free()
+        if is_instance_valid(room):
+          room.free()
     self.rooms.clear()
